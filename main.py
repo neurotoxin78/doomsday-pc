@@ -3,11 +3,35 @@ import sys
 from PyQt5 import QtCore, QtWidgets, uic
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtWidgets import (QApplication, QMainWindow, QStatusBar, QLabel,
+                             QPushButton, QFrame)
+import socket
 import random
 import string
 from rich.console import Console
+from datetime import datetime
 
 con = Console()
+
+class VLine(QFrame):
+    # a simple VLine, like the one you get from designer
+    def __init__(self):
+        super(VLine, self).__init__()
+        self.setFrameShape(self.VLine|self.Sunken)
+
+
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.settimeout(0)
+    try:
+        # doesn't even have to be reachable
+        s.connect(('8.8.8.8', 1))
+        IP = s.getsockname()[0]
+    except Exception:
+        IP = '127.0.0.1'
+    finally:
+        s.close()
+    return IP
 
 def extended_exception_hook(exec_type, value, traceback):
     # Print the error and traceback
@@ -25,12 +49,26 @@ class MainWindow(QtWidgets.QMainWindow):
         uic.loadUi('main.ui', self)
         self.setWindowTitle("Doomsday-PC Launcher")
         self.setStylesheet("main.qss")
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.clocktimer = QTimer()
+        self.sensortimer = QTimer()
+        self.ipLabel = QLabel("Label: ")
+        self.ipLabel.setStyleSheet('border: 0; color:  #6395ff;')
+        self.statusBar.reformat()
+        self.statusBar.setStyleSheet('border: 0; background-color: #6395ff;')
+        self.statusBar.setStyleSheet("QStatusBar::item {border: none;}")
+        self.statusBar.addPermanentWidget(VLine())    # <---
+        self.statusBar.addPermanentWidget(self.ipLabel)
+        self.ipLabel.setText("ip:0.0.0.0")
+
         self.initUI()
 
     def initUI(self):
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.powerMeter)
-        self.timer.start(200)
+        self.sensortimer.timeout.connect(self.powerMeter)
+        self.sensortimer.start(200)
+        self.clocktimer.timeout.connect(self.Clock)
+        self.clocktimer.start(500)
+
         self.terminalButton.setText("Term")
         # self.terminalButton.setIcon(QIcon("close.png"))
         self.terminalButton.clicked.connect(self.LaunchTerminal)
@@ -38,6 +76,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.menuButton.clicked.connect(self.ShowMenu)
         self.poweroffButton.clicked.connect(self.PowerOff)
         self.rebootButton.clicked.connect(self.Reboot)
+
+    def Clock(self):
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        self.statusBar.showMessage(current_time)
+        #hostname = socket.gethostname()
+        #ipaddr = socket.gethostbyname(hostname)
+        self.ipLabel.setText(get_ip())
 
     def Reboot(self):
         result = subprocess.run(["/usr/bin/systemctl", "reboot"], capture_output = True, text = True)
