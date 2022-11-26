@@ -65,7 +65,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def initUI(self):
         self.sensortimer.timeout.connect(self.powerMeter)
-        self.sensortimer.start(200)
+        self.sensortimer.start(500)
         self.clocktimer.timeout.connect(self.Clock)
         self.clocktimer.start(500)
 
@@ -107,6 +107,8 @@ class MainWindow(QtWidgets.QMainWindow):
             val = float(power.read()) / 1000000
         decor = "%.2f W" % val
         self.pwrLabel.setText(decor)
+        result = subprocess.run(["/usr/bin/mpstat", "-u", "-n" ], capture_output = True, text = True)
+        self.statLabel.setText(result.stdout)
 
     def setStylesheet(self, filename):
         with open(filename, "r") as fh:
