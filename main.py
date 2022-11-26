@@ -36,13 +36,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.terminalButton.clicked.connect(self.LaunchTerminal)
         self.menuButton.setText("...")
         self.menuButton.clicked.connect(self.ShowMenu)
+        self.poweroffButton.clicked.connect(self.PowerOff)
+        self.rebootButton.clicked.connect(self.Reboot)
 
+    def Reboot(self):
+        result = subprocess.run(["/usr/bin/systemctl", "reboot"], capture_output = True, text = True)
+    def PowerOff(self):
+        result = subprocess.run(["/usr/bin/systemctl","poweroff"], capture_output=True, text=True)
     def ShowMenu(self):
         pass
     def LaunchTerminal(self):
         result = subprocess.run(["/usr/bin/x-terminal-emulator",], capture_output=True, text=True)
-        print("stdout:", result.stdout)
-        print("stderr:", result.stderr)
 
     def powerMeter(self):
         with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/in1_input") as volt:
