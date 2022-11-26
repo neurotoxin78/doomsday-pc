@@ -1,6 +1,7 @@
+import subprocess
 import sys
 from PyQt5 import QtCore, QtWidgets, uic
-from PyQt5.QtGui import QStandardItemModel
+from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt, QTimer
 import random
 import string
@@ -30,6 +31,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.timer = QTimer()
         self.timer.timeout.connect(self.powerMeter)
         self.timer.start(200)
+        self.terminalButton.setText("Term")
+        # self.terminalButton.setIcon(QIcon("close.png"))
+        self.terminalButton.clicked.connect(self.LaunchTerminal)
+        self.menuButton.setText("...")
+        self.menuButton.clicked.connect(self.ShowMenu)
+
+    def ShowMenu(self):
+        pass
+    def LaunchTerminal(self):
+        result = subprocess.run(["/usr/bin/x-terminal-emulator",], capture_output=True, text=True)
+        print("stdout:", result.stdout)
+        print("stderr:", result.stderr)
 
     def powerMeter(self):
         with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/in1_input") as volt:
