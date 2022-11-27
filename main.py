@@ -10,6 +10,8 @@ import random
 import string
 from rich.console import Console
 from datetime import datetime
+import json
+import gc
 
 con = Console()
 
@@ -52,6 +54,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.clocktimer = QTimer()
         self.sensortimer = QTimer()
+        self.sysstattimer = QTimer()
         self.ipLabel = QLabel("Label: ")
         self.ipLabel.setStyleSheet('border: 0; color:  #6395ff;')
         self.statusBar.reformat()
@@ -66,6 +69,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def initUI(self):
         self.sensortimer.timeout.connect(self.powerMeter)
         self.sensortimer.start(500)
+        self.sysstattimer.timeout.connect(self.sysStat)
+        self.sysstattimer.start(1000)
         self.clocktimer.timeout.connect(self.Clock)
         self.clocktimer.start(500)
 
@@ -107,8 +112,21 @@ class MainWindow(QtWidgets.QMainWindow):
             val = float(power.read()) / 1000000
         decor = "%.2f W" % val
         self.pwrLabel.setText(decor)
-        result = subprocess.run(["/usr/bin/mpstat", "-u", "-n" ], capture_output = True, text = True)
-        self.statLabel.setText(result.stdout)
+
+    def sysStat(self):
+        cpu_stat = subprocess.run(["/usr/bin/mpstat -o JSON"], capture_output = True, text = True, shell = True)
+        j_data = json.loads(cpu_stat.stdout)
+        statistics = j_data['sysstat']['hosts'][0]['statistics']
+        cpu_load_usr = statistics[0]['cpu-load'][0]['usr']
+        cpu_load_idle = statistics[0]['cpu-load'][0]['idle']
+        cpu_load_sys = statistics[0]['cpu-load'][0]['sys']
+        cpu_load_iowait = statistics[0]['cpu-load'][0]['iowait']
+        ram_stat = subprocess.run(["/usr/bin/free -h --kilo"], capture_output = True, text = True, shell = True)
+        ram = ram_stat.stdout
+        # cpu string
+        sys_stat = f"CPU: usr {cpu_load_usr}% sys {cpu_load_sys}% iow {cpu_load_iowait}% idle {cpu_load_idle}%\n{ram}"
+        self.statLabel.setText(sys_stat)
+        gc.collect()
 
     def setStylesheet(self, filename):
         with open(filename, "r") as fh:
