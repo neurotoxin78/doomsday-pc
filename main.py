@@ -55,19 +55,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.clocktimer = QTimer()
         self.sensortimer = QTimer()
         self.sysstattimer = QTimer()
-        self.ipLabel = QLabel("Label: ")
-        self.pwroffButton = QPushButton()
-        self.pwroffButton.setText("PowerOFF")
-        self.pwroffButton.clicked.connect(self.PowerOff)
-        self.ipLabel.setStyleSheet('border: 0; color:  #6395ff;')
-        self.statusBar.reformat()
-        self.statusBar.setStyleSheet('border: 0; background-color: #6395ff;')
-        self.statusBar.setStyleSheet("QStatusBar::item {border: none;}")
-        self.statusBar.addPermanentWidget(VLine())    # <---
-        self.statusBar.addPermanentWidget(self.ipLabel)
-        self.ipLabel.setText("ip:0.0.0.0")
-        self.statusBar.addPermanentWidget(VLine())  # <---
-        self.statusBar.addPermanentWidget(self.pwroffButton)
 
         self.initUI()
 
@@ -83,8 +70,23 @@ class MainWindow(QtWidgets.QMainWindow):
         self.terminalButton.clicked.connect(self.LaunchTerminal)
         self.smplayerButton.setText("SMPlayer")
         self.smplayerButton.clicked.connect(self.LaunchSmplayer)
+        self.w3mButton.setText("W3M")
+        self.w3mButton.clicked.connect(self.LaunchW3M)
         self.poweroffButton.clicked.connect(self.PowerOff)
         self.rebootButton.clicked.connect(self.Reboot)
+        self.ipLabel = QLabel("Label: ")
+        self.pwroffButton = QPushButton()
+        self.pwroffButton.setText("PowerOFF")
+        self.pwroffButton.clicked.connect(self.PowerOff)
+        self.ipLabel.setStyleSheet('border: 0; color:  #6395ff;')
+        self.statusBar.reformat()
+        self.statusBar.setStyleSheet('border: 0; background-color: #6395ff;')
+        self.statusBar.setStyleSheet("QStatusBar::item {border: none;}")
+        self.statusBar.addPermanentWidget(VLine())    # <---
+        self.statusBar.addPermanentWidget(self.ipLabel)
+        self.ipLabel.setText("ip:0.0.0.0")
+        self.statusBar.addPermanentWidget(VLine())  # <---
+        self.statusBar.addPermanentWidget(self.pwroffButton)
 
     def Clock(self):
         now = datetime.now()
@@ -92,6 +94,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.statusBar.showMessage(current_time)
         self.ipLabel.setText(get_ip())
 
+    def LaunchW3M(self):
+        result = subprocess.run(["/usr/bin/w3m",], capture_output = True, text = True)
     def Reboot(self):
         result = subprocess.run(["/usr/bin/systemctl", "reboot"], capture_output = True, text = True)
     def PowerOff(self):
@@ -104,6 +108,10 @@ class MainWindow(QtWidgets.QMainWindow):
     def powerMeter(self):
         with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/in1_input") as volt:
             val = float(volt.read()) / 1000
+        # auto power off
+        if val < 10.8:
+            print("PowerOFF")
+            self.PowerOff()
         decor = "%.2f V" % val
         self.voltLabel.setText(decor)
         with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/curr1_input") as amp:
