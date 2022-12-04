@@ -56,6 +56,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.sensortimer = QTimer()
         self.sysstattimer = QTimer()
         self.ipLabel = QLabel("Label: ")
+        self.pwroffButton = QPushButton()
+        self.pwroffButton.setText("PowerOFF")
+        self.pwroffButton.clicked.connect(self.PowerOff)
         self.ipLabel.setStyleSheet('border: 0; color:  #6395ff;')
         self.statusBar.reformat()
         self.statusBar.setStyleSheet('border: 0; background-color: #6395ff;')
@@ -63,6 +66,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.statusBar.addPermanentWidget(VLine())    # <---
         self.statusBar.addPermanentWidget(self.ipLabel)
         self.ipLabel.setText("ip:0.0.0.0")
+        self.statusBar.addPermanentWidget(VLine())  # <---
+        self.statusBar.addPermanentWidget(self.pwroffButton)
 
         self.initUI()
 
@@ -74,11 +79,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.clocktimer.timeout.connect(self.Clock)
         self.clocktimer.start(500)
 
-        self.terminalButton.setText("Term")
-        # self.terminalButton.setIcon(QIcon("close.png"))
+        self.terminalButton.setText("Terminal")
         self.terminalButton.clicked.connect(self.LaunchTerminal)
-        self.menuButton.setText("...")
-        self.menuButton.clicked.connect(self.ShowMenu)
+        self.smplayerButton.setText("SMPlayer")
+        self.smplayerButton.clicked.connect(self.LaunchSmplayer)
         self.poweroffButton.clicked.connect(self.PowerOff)
         self.rebootButton.clicked.connect(self.Reboot)
 
@@ -86,16 +90,14 @@ class MainWindow(QtWidgets.QMainWindow):
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
         self.statusBar.showMessage(current_time)
-        #hostname = socket.gethostname()
-        #ipaddr = socket.gethostbyname(hostname)
         self.ipLabel.setText(get_ip())
 
     def Reboot(self):
         result = subprocess.run(["/usr/bin/systemctl", "reboot"], capture_output = True, text = True)
     def PowerOff(self):
         result = subprocess.run(["/usr/bin/systemctl","poweroff"], capture_output=True, text=True)
-    def ShowMenu(self):
-        pass
+    def LaunchSmplayer(self):
+        result = subprocess.run(["/usr/bin/smplayer",], capture_output=True, text=True)
     def LaunchTerminal(self):
         result = subprocess.run(["/usr/bin/x-terminal-emulator",], capture_output=True, text=True)
 
