@@ -95,15 +95,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ipLabel.setText(get_ip())
 
     def LaunchW3M(self):
-        result = subprocess.run(["/usr/bin/w3m",], capture_output = True, text = True)
+        print("run w3c")
+        result = subprocess.run(["/usr/bin/kitty -e /usr/bin/w3m google.com &",], capture_output = True, text = True, shell = True)
     def Reboot(self):
-        result = subprocess.run(["/usr/bin/systemctl", "reboot"], capture_output = True, text = True)
+        result = subprocess.run(["sudo /usr/bin/systemctl", "reboot"], capture_output = True, text = True, shell = True)
     def PowerOff(self):
-        result = subprocess.run(["/usr/bin/systemctl","poweroff"], capture_output=True, text=True)
+        result = subprocess.run(["sudo /usr/bin/systemctl","poweroff"], capture_output=True, text=True, shell = True)
     def LaunchSmplayer(self):
-        result = subprocess.run(["/usr/bin/smplayer",], capture_output=True, text=True)
+        result = subprocess.run(["/usr/bin/smplayer &",], capture_output=True, text=True, shell = True)
     def LaunchTerminal(self):
-        result = subprocess.run(["/usr/bin/x-terminal-emulator",], capture_output=True, text=True)
+        result = subprocess.run(["/usr/bin/x-terminal-emulator &",], capture_output=True, text=True, shell = True)
 
     def powerMeter(self):
         with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/in1_input") as volt:
