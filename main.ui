@@ -160,28 +160,14 @@
            <property name="spacing">
             <number>0</number>
            </property>
-           <item row="1" column="0">
-            <widget class="QLabel" name="voltLabel">
-             <property name="font">
-              <font>
-               <pointsize>14</pointsize>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(255, 141, 1);</string>
-             </property>
-             <property name="text">
-              <string>0V</string>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="2">
             <widget class="QLabel" name="pwrLabel">
              <property name="font">
               <font>
-               <pointsize>14</pointsize>
+               <family>Trebuchet MS</family>
+               <pointsize>18</pointsize>
                <bold>true</bold>
+               <stylestrategy>PreferAntialias</stylestrategy>
               </font>
              </property>
              <property name="styleSheet">
@@ -195,12 +181,32 @@
              </property>
             </widget>
            </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="voltLabel">
+             <property name="font">
+              <font>
+               <family>Trebuchet MS</family>
+               <pointsize>18</pointsize>
+               <bold>true</bold>
+               <stylestrategy>PreferAntialias</stylestrategy>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 141, 1);</string>
+             </property>
+             <property name="text">
+              <string>0V</string>
+             </property>
+            </widget>
+           </item>
            <item row="1" column="1">
             <widget class="QLabel" name="amperLabel">
              <property name="font">
               <font>
-               <pointsize>14</pointsize>
+               <family>Trebuchet MS</family>
+               <pointsize>18</pointsize>
                <bold>true</bold>
+               <stylestrategy>PreferAntialias</stylestrategy>
               </font>
              </property>
              <property name="styleSheet">

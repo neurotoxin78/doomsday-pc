@@ -113,7 +113,7 @@ class MainWindow(QtWidgets.QMainWindow):
         if val < 10.8:
             print("PowerOFF")
             self.PowerOff()
-        decor = "%.2f V" % val
+        decor = "%.1f V" % val
         self.voltLabel.setText(decor)
         with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/curr1_input") as amp:
             val = float(amp.read())
@@ -121,7 +121,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.amperLabel.setText(decor)
         with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/power1_input") as power:
             val = float(power.read()) / 1000000
-        decor = "%.2f W" % val
+        decor = "%.1f W" % val
         self.pwrLabel.setText(decor)
 
     def sysStat(self):
