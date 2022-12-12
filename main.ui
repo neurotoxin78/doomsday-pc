@@ -185,7 +185,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 115, 255);</string>
+              <string notr="true">color: rgb(85, 255, 0);</string>
              </property>
              <property name="text">
               <string>0W</string>
@@ -204,7 +204,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 170, 0);</string>
+              <string notr="true">color: rgb(0, 115, 255);</string>
              </property>
              <property name="text">
               <string>0A</string>

@@ -98,9 +98,9 @@ class MainWindow(QtWidgets.QMainWindow):
         print("run w3c")
         result = subprocess.run(["/usr/bin/kitty -e /usr/bin/w3m google.com &",], capture_output = True, text = True, shell = True)
     def Reboot(self):
-        result = subprocess.run(["sudo /usr/bin/systemctl", "reboot"], capture_output = True, text = True, shell = True)
+        result = subprocess.run(["/usr/bin/systemctl", "reboot"], capture_output = True, text = True)
     def PowerOff(self):
-        result = subprocess.run(["sudo /usr/bin/systemctl","poweroff"], capture_output=True, text=True, shell = True)
+        result = subprocess.run(["/usr/bin/systemctl","poweroff"], capture_output=True, text=True)
     def LaunchSmplayer(self):
         result = subprocess.run(["/usr/bin/smplayer &",], capture_output=True, text=True, shell = True)
     def LaunchTerminal(self):
