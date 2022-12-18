@@ -112,7 +112,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # auto power off
         if val < 10.8:
             print("PowerOFF")
-            self.PowerOff()
+            #self.PowerOff()
         decor = "%.1f V" % val
         self.voltLabel.setText(decor)
         with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/curr1_input") as amp:
