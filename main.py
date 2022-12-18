@@ -60,9 +60,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def initUI(self):
         self.sensortimer.timeout.connect(self.powerMeter)
-        self.sensortimer.start(500)
+        self.sensortimer.start(1000)
         self.sysstattimer.timeout.connect(self.sysStat)
-        self.sysstattimer.start(1000)
+        self.sysstattimer.start(5000)
         self.clocktimer.timeout.connect(self.Clock)
         self.clocktimer.start(500)
 
