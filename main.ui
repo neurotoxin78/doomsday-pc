@@ -422,7 +422,7 @@
   <widget class="QStatusBar" name="statusBar">
    <property name="font">
     <font>
-     <pointsize>11</pointsize>
+     <pointsize>9</pointsize>
      <bold>true</bold>
     </font>
    </property>

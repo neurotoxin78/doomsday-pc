@@ -4,7 +4,7 @@ from PyQt5 import QtCore, QtWidgets, uic
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QStatusBar, QLabel,
-                             QPushButton, QFrame)
+                             QPushButton, QFrame, QCheckBox)
 import socket
 import random
 import string
@@ -48,6 +48,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__(*args, **kwargs)
         # Load the UI Page
         self.config = None
+        self.voltage = 12.0
         uic.loadUi('main.ui', self)
         self.setWindowTitle("Doomsday-PC Launcher")
         self.setStylesheet("main.qss")
@@ -55,6 +56,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.clocktimer = QTimer()
         self.sensortimer = QTimer()
         self.sysstattimer = QTimer()
+        self.powertimer = QTimer()
 
         self.initUI()
 
@@ -65,7 +67,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.sysstattimer.start(5000)
         self.clocktimer.timeout.connect(self.Clock)
         self.clocktimer.start(500)
-
+        self.powertimer.timeout.connect(self.powerCheck)
+        self.powertimer.start((1000 * 1) * 3)
         self.terminalButton.setText("Terminal")
         self.terminalButton.clicked.connect(self.LaunchTerminal)
         self.smplayerButton.setText("SMPlayer")
@@ -77,6 +80,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.poweroffButton.clicked.connect(self.PowerOff)
         self.rebootButton.clicked.connect(self.Reboot)
         self.ipLabel = QLabel("Label: ")
+        self.autopoweroff = QCheckBox()
+        self.autopoweroff.setText("auto")
         self.pwroffButton = QPushButton()
         self.pwroffButton.setText("PowerOFF")
         self.pwroffButton.clicked.connect(self.PowerOff)
@@ -89,7 +94,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ipLabel.setText("ip:0.0.0.0")
         self.statusBar.addPermanentWidget(VLine())  # <---
         self.statusBar.addPermanentWidget(self.pwroffButton)
+        self.statusBar.addPermanentWidget(VLine())  # <---
+        self.statusBar.addPermanentWidget(self.autopoweroff)
 
+    def powerCheck(self):
+        if self.voltage < 10.8:
+            if self.autopoweroff.isChecked():
+                print("PowerOFF")
+                self.PowerOff()
+            else:
+                print("autopoweroff disabled")
     def Clock(self):
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
@@ -114,9 +128,7 @@ class MainWindow(QtWidgets.QMainWindow):
         with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/in1_input") as volt:
             val = float(volt.read()) / 1000
         # auto power off
-        if val < 10.8:
-            print("PowerOFF")
-            #self.PowerOff()
+        self.voltage = val
         decor = "%.1f V" % val
         self.voltLabel.setText(decor)
         with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/curr1_input") as amp:
