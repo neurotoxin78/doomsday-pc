@@ -72,8 +72,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.smplayerButton.clicked.connect(self.LaunchSmplayer)
         self.w3mButton.setText("W3M")
         self.w3mButton.clicked.connect(self.LaunchW3M)
-        self.nvlcButton.setText("nVLC")
-        self.nvlcButton.clicked.connect(self.LaunchVLC)
+        self.toolButton_2.setText("nVLC")
+        self.toolButton_2.clicked.connect(self.LaunchVLC)
         self.poweroffButton.clicked.connect(self.PowerOff)
         self.rebootButton.clicked.connect(self.Reboot)
         self.ipLabel = QLabel("Label: ")
@@ -106,7 +106,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def LaunchSmplayer(self):
         result = subprocess.run(["/usr/bin/smplayer &",], capture_output=True, text=True, shell = True)
     def LaunchVLC(self):
-        result = subprocess.run(["/usr/bin/nvlc &",], capture_output=True, text=True, shell = True)
+        result = subprocess.run(["/usr/bin/x-terminal-emulator -e /usr/bin/nvlc &",], capture_output=True, text=True, shell = True)
     def LaunchTerminal(self):
         result = subprocess.run(["/usr/bin/x-terminal-emulator &",], capture_output=True, text=True, shell = True)
 
