@@ -85,9 +85,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pwroffButton = QPushButton()
         self.pwroffButton.setText("PowerOFF")
         self.pwroffButton.clicked.connect(self.PowerOff)
-        self.ipLabel.setStyleSheet('border: 0; color:  #6395ff;')
+        self.ipLabel.setStyleSheet('border: 0; color:  #faac25;')
         self.statusBar.reformat()
-        self.statusBar.setStyleSheet('border: 0; background-color: #6395ff;')
+        self.statusBar.setStyleSheet('border: 0; background-color: #faac25;')
         self.statusBar.setStyleSheet("QStatusBar::item {border: none;}")
         self.statusBar.addPermanentWidget(VLine())    # <---
         self.statusBar.addPermanentWidget(self.ipLabel)
