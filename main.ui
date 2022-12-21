@@ -165,7 +165,7 @@
              <property name="font">
               <font>
                <family>Trebuchet MS</family>
-               <pointsize>18</pointsize>
+               <pointsize>20</pointsize>
                <bold>true</bold>
                <stylestrategy>PreferAntialias</stylestrategy>
               </font>
@@ -186,7 +186,7 @@
              <property name="font">
               <font>
                <family>Trebuchet MS</family>
-               <pointsize>18</pointsize>
+               <pointsize>20</pointsize>
                <bold>true</bold>
                <stylestrategy>PreferAntialias</stylestrategy>
               </font>
@@ -204,7 +204,7 @@
              <property name="font">
               <font>
                <family>Trebuchet MS</family>
-               <pointsize>18</pointsize>
+               <pointsize>14</pointsize>
                <bold>true</bold>
                <stylestrategy>PreferAntialias</stylestrategy>
               </font>
