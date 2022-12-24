@@ -12,6 +12,7 @@ from rich.console import Console
 from datetime import datetime
 import json
 import gc
+from scan_music import scan_for_palylist
 
 con = Console()
 
@@ -77,6 +78,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.w3mButton.clicked.connect(self.LaunchW3M)
         self.toolButton_2.setText("nVLC")
         self.toolButton_2.clicked.connect(self.LaunchVLC)
+        self.toolButton_3.setText("Gen m3u")
+        self.toolButton_3.clicked.connect(scan_for_palylist)
         self.poweroffButton.clicked.connect(self.PowerOff)
         self.rebootButton.clicked.connect(self.Reboot)
         self.ipLabel = QLabel("Label: ")
