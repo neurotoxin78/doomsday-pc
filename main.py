@@ -6,13 +6,13 @@ from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QStatusBar, QLabel,
                              QPushButton, QFrame, QCheckBox)
 import socket
-import random
-import string
 from rich.console import Console
 from datetime import datetime
 import json
 import gc
 from scan_music import scan_for_palylist
+import platform
+
 
 con = Console()
 
@@ -128,35 +128,40 @@ class MainWindow(QtWidgets.QMainWindow):
         result = subprocess.run(["/usr/bin/x-terminal-emulator &",], capture_output=True, text=True, shell = True)
 
     def powerMeter(self):
-        with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/in1_input") as volt:
-            val = float(volt.read()) / 1000
-        # auto power off
-        self.voltage = val
-        decor = "%.1f V" % val
-        self.voltLabel.setText(decor)
-        with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/curr1_input") as amp:
-            val = float(amp.read())
-        decor = "%.0f mA" % val
-        self.amperLabel.setText(decor)
-        with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/power1_input") as power:
-            val = float(power.read()) / 1000000
-        decor = "%.1f W" % val
-        self.pwrLabel.setText(decor)
-
+        if platform.system() == 'Linux':
+            with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/in1_input") as volt:
+                val = float(volt.read()) / 1000
+            # auto power off
+            self.voltage = val
+            decor = "%.1f V" % val
+            self.voltLabel.setText(decor)
+            with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/curr1_input") as amp:
+                val = float(amp.read())
+            decor = "%.0f mA" % val
+            self.amperLabel.setText(decor)
+            with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/power1_input") as power:
+                val = float(power.read()) / 1000000
+            decor = "%.1f W" % val
+            self.pwrLabel.setText(decor)
+        else:
+            pass
     def sysStat(self):
-        cpu_stat = subprocess.run(["/usr/bin/mpstat -o JSON"], capture_output = True, text = True, shell = True)
-        j_data = json.loads(cpu_stat.stdout)
-        statistics = j_data['sysstat']['hosts'][0]['statistics']
-        cpu_load_usr = statistics[0]['cpu-load'][0]['usr']
-        cpu_load_idle = statistics[0]['cpu-load'][0]['idle']
-        cpu_load_sys = statistics[0]['cpu-load'][0]['sys']
-        cpu_load_iowait = statistics[0]['cpu-load'][0]['iowait']
-        ram_stat = subprocess.run(["/usr/bin/free -h --kilo"], capture_output = True, text = True, shell = True)
-        ram = ram_stat.stdout
-        # cpu string
-        sys_stat = f"CPU: usr {cpu_load_usr}% sys {cpu_load_sys}% iow {cpu_load_iowait}% idle {cpu_load_idle}%\n{ram}"
-        self.statLabel.setText(sys_stat)
-        gc.collect()
+        if platform.system() == 'Linux':
+            cpu_stat = subprocess.run(["/usr/bin/mpstat -o JSON"], capture_output = True, text = True, shell = True)
+            j_data = json.loads(cpu_stat.stdout)
+            statistics = j_data['sysstat']['hosts'][0]['statistics']
+            cpu_load_usr = statistics[0]['cpu-load'][0]['usr']
+            cpu_load_idle = statistics[0]['cpu-load'][0]['idle']
+            cpu_load_sys = statistics[0]['cpu-load'][0]['sys']
+            cpu_load_iowait = statistics[0]['cpu-load'][0]['iowait']
+            ram_stat = subprocess.run(["/usr/bin/free -h --kilo"], capture_output = True, text = True, shell = True)
+            ram = ram_stat.stdout
+            # cpu string
+            sys_stat = f"CPU: usr {cpu_load_usr}% sys {cpu_load_sys}% iow {cpu_load_iowait}% idle {cpu_load_idle}%\n{ram}"
+            self.statLabel.setText(sys_stat)
+            gc.collect()
+        else:
+            pass
 
     def setStylesheet(self, filename):
         with open(filename, "r") as fh:
