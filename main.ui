@@ -161,50 +161,11 @@
             <number>0</number>
            </property>
            <item row="1" column="2">
-            <widget class="QLabel" name="pwrLabel">
-             <property name="font">
-              <font>
-               <family>DSEG14 Modern</family>
-               <pointsize>24</pointsize>
-               <bold>true</bold>
-               <stylestrategy>PreferAntialias</stylestrategy>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(85, 255, 127);</string>
-             </property>
-             <property name="text">
-              <string>0W</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="voltLabel">
-             <property name="font">
-              <font>
-               <family>DSEG14 Modern</family>
-               <pointsize>24</pointsize>
-               <bold>true</bold>
-               <stylestrategy>PreferAntialias</stylestrategy>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(0, 179, 255);</string>
-             </property>
-             <property name="text">
-              <string>0V</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
             <widget class="QLabel" name="amperLabel">
              <property name="font">
               <font>
                <family>DSEG14 Modern</family>
-               <pointsize>16</pointsize>
+               <pointsize>18</pointsize>
                <bold>true</bold>
                <stylestrategy>PreferAntialias</stylestrategy>
               </font>
@@ -213,10 +174,97 @@
               <string notr="true">color: rgb(255, 85, 255);</string>
              </property>
              <property name="text">
-              <string>0A</string>
+              <string>0</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="vunitLabel">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>V</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <widget class="QLabel" name="pwrLabel">
+             <property name="font">
+              <font>
+               <family>DSEG14 Modern</family>
+               <pointsize>26</pointsize>
+               <bold>true</bold>
+               <stylestrategy>PreferAntialias</stylestrategy>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(85, 255, 127);</string>
+             </property>
+             <property name="text">
+              <string>0</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QLabel" name="aunitLabel">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>mA</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="voltLabel">
+             <property name="font">
+              <font>
+               <family>DSEG14 Modern</family>
+               <pointsize>26</pointsize>
+               <bold>true</bold>
+               <stylestrategy>PreferAntialias</stylestrategy>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 179, 255);</string>
+             </property>
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="5">
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>W</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>

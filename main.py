@@ -63,7 +63,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def initUI(self):
         self.sensortimer.timeout.connect(self.powerMeter)
-        self.sensortimer.start(250)
+        self.sensortimer.start(1000)
         self.sysstattimer.timeout.connect(self.sysStat)
         self.sysstattimer.start(5000)
         self.clocktimer.timeout.connect(self.Clock)
@@ -133,15 +133,15 @@ class MainWindow(QtWidgets.QMainWindow):
                 val = float(volt.read()) / 1000
             # auto power off
             self.voltage = val
-            decor = "%.1f V" % val
+            decor = "%.1f" % val
             self.voltLabel.setText(decor)
             with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/curr1_input") as amp:
                 val = float(amp.read())
-            decor = "%.0f mA" % val
+            decor = "%.0f" % val
             self.amperLabel.setText(decor)
             with open("/sys/bus/i2c/devices/0-0040/hwmon/hwmon1/power1_input") as power:
                 val = float(power.read()) / 1000000
-            decor = "%.1f W" % val
+            decor = "%.1f" % val
             self.pwrLabel.setText(decor)
         else:
             pass
