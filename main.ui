@@ -189,6 +189,9 @@
                <bold>true</bold>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 179, 255);</string>
+             </property>
              <property name="text">
               <string>V</string>
              </property>
@@ -226,6 +229,9 @@
                <bold>true</bold>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 85, 255);</string>
+             </property>
              <property name="text">
               <string>mA</string>
              </property>
@@ -259,6 +265,9 @@
                <pointsize>12</pointsize>
                <bold>true</bold>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(85, 255, 127);</string>
              </property>
              <property name="text">
               <string>W</string>
