@@ -160,7 +160,7 @@
            <property name="spacing">
             <number>0</number>
            </property>
-           <item row="1" column="2">
+           <item row="1" column="3">
             <widget class="QLabel" name="amperLabel">
              <property name="font">
               <font>
@@ -181,8 +181,8 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="vunitLabel">
+           <item row="1" column="4">
+            <widget class="QLabel" name="aunitLabel">
              <property name="font">
               <font>
                <pointsize>12</pointsize>
@@ -190,17 +190,59 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 179, 255);</string>
+              <string notr="true">color: rgb(255, 85, 255);</string>
              </property>
              <property name="text">
-              <string>V</string>
+              <string>mA</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
-           <item row="1" column="4">
+           <item row="1" column="7">
+            <widget class="QLabel" name="punitLabel">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(85, 255, 127);</string>
+             </property>
+             <property name="text">
+              <string>W</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="vmantLabel">
+             <property name="font">
+              <font>
+               <family>DSEG14 Classic</family>
+               <pointsize>14</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 179, 255);</string>
+             </property>
+             <property name="text">
+              <string>0</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+             <property name="margin">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="5">
             <widget class="QLabel" name="pwrLabel">
              <property name="font">
               <font>
@@ -218,25 +260,6 @@
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QLabel" name="aunitLabel">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(255, 85, 255);</string>
-             </property>
-             <property name="text">
-              <string>mA</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
@@ -258,8 +281,8 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="5">
-            <widget class="QLabel" name="label">
+           <item row="1" column="2">
+            <widget class="QLabel" name="vunitLabel">
              <property name="font">
               <font>
                <pointsize>12</pointsize>
@@ -267,13 +290,36 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: rgb(85, 255, 127);</string>
+              <string notr="true">color: rgb(0, 179, 255);</string>
              </property>
              <property name="text">
-              <string>W</string>
+              <string>V</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="6">
+            <widget class="QLabel" name="pmantLabel">
+             <property name="font">
+              <font>
+               <family>DSEG14 Classic</family>
+               <pointsize>14</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(85, 255, 127);</string>
+             </property>
+             <property name="text">
+              <string>0</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="margin">
+              <number>0</number>
              </property>
             </widget>
            </item>
